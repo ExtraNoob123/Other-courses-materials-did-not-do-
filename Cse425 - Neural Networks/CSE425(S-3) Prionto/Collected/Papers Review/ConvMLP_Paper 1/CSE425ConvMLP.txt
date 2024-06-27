@@ -1,0 +1,46 @@
+2.What do you understand by convolation tokenizer?How it is used with MLP and made CONVMLP?
+According to the paper convolutional tokenizer is a type of tokenizer which helps to extract the initial feature map and 
+also helps to reduce computation and improve spatial connections.
+
+In the paper the author use a convolutional tokenizer as it includes three convolutional blocks,each consisting of
+blocks.Thus with the help of convolution tokenizer ,a depth-wise
+convolution layer between two channel MLPs in one MLP
+block and then call it Conv-MLP block. It is a 3x3 convolution layer with the same channel
+to the two channel MLPs.As the convolution tokenizer include convolution block and 
+convolution layer ,the convolution layer makes up the
+deficiency of removing spatial MLPs, which improves the
+performance by a large margin while only brings few parameters.
+
+
+1
+If MLP is used to encode spatial information then it requires fixing dimention of input which lacks the 
+performance of MLP and also single stage design and following ViT may lack the performance
+of MLP as they make predictions based on feature pyramids.Moreover large consecutive  
+MLP lead to heavy computational burden and more parameters which includes high dimension of hidden layers
+and for heavy computational burden and high dimensional parameter large consecutive MLP may lack the performance 
+of MLPs for current computer vision tasks. 
+The author propose ConvMLP to overcome the process as ConvMLP is a Hierarchical Convolutional MLP backbone for visual recognition.To take out
+constraints on input dimension in other MLP, the authors first replaced all spatial MLPs with channel MLPs  
+and make a pure-MLP baseline model. To make up spatial information interaction, they added a convolution stage which is light-weight on 
+top of the rest MLP stages and also used convolution layers for down-sampling. Then, to augment spatial connections in MLP stages, they added a
+simple 3 × 3 depthwise convolution between the two channel MLPs in each MLP block.This co-design of convolution
+layers and MLP layers builds the ConvMLP model for image classification. Thus ConvMLP overcame such process and improves the lacking of MLP. 
+
+3. The author experimented upon  ImageNet-1k, CIFAR-10/CIFAR-100, Flowers-102, MS COCO and
+ADE20K benchmark datasets.
+The authors have used same domain for all the datasets used  as all these datasets have image type data
+for further image classification. 
+
+4. Object detection and Semantic segmentation are dificult in the traditional MLP as it requires fixing dimention of input and  they
+usually require arbitrary resolutions of input sizes as well. 
+For example, if MLP is used to encode spatial information then it requires fixing dimention of input which is difficult in traditional
+MLP and  MLP-Mixer was able to slightly excess ViTBase with its large variant in terms of computation. 
+Similarly, ResMLP suffers from over 30% more parameters and complexity, compared to a transformer-based model of similar performance.
+To overcome the difficulties of traditional MLP the authors proposed ConvMLP as It is a Hierarchical Convolutional MLP backbone for visual recognition. To take out
+constraints on input dimension in other MLP, the authors first replaced all spatial MLPs with channel MLPs  
+and make a pure-MLP baseline model. To make up spatial information interaction, they added a convolution stage which is light-weight on 
+top of the rest MLP stages and also used convolution layers for down-sampling. Then, to augment spatial connections in MLP stages, they added a
+simple 3 × 3 depthwise convolution between the two channel MLPs in each MLP block, then call it a Conv-MLP block. This co-design of convolution
+layers and MLP layers builds the ConvMLP model for image classification.By doing different experiments on different datasets, it showed that ConvMLP is  
+better for both  performance and model size. Thus ConvMLP overcame the difficulties 
+as ConvMLP is scalable and can be seamlessly used for downstream tasks like object detection and semantic segmentation. 
